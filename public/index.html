@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hangman</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/6e6a14d44a.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Hangman Section -->
+    <section class="hangman">
+      <h1 class="hangman__title">Hangman</h1>
+      <input type="checkbox" id="darkModeToggle" />
+      <label for="darkModeToggle" class="darkModeToggle">
+        <i class="fa-regular fa-sun" id="light"></i>
+        <i class="fa-regular fa-moon" id="dark"></i>
+      </label>
+      <div class="hangman__container">
+        <div class="visual__container">
+          <div class="hangman__visual">
+            <img src="public/visual_base.png" class="hangman__base" />
+            <div class="person">
+              <span class="hangman__piece head" data-piece="1"></span>
+              <span class="hangman__piece body" data-piece="2"></span>
+              <span class="hangman__piece armLeft" data-piece="3"></span>
+              <span class="hangman__piece armRight" data-piece="4"></span>
+              <span class="hangman__piece legLeft" data-piece="5"></span>
+              <span class="hangman__piece legRight" data-piece="6"></span>
+            </div>
+          </div>
+          <p id="progress"></p>
+          <p id="word"></p>
+          <button onclick="generateWord()" class="startGame">
+            (Re)Start Game
+          </button>
+          <button onclick="giveHint()" class="hint">Hint</button>
+          <p id="hint"></p>
+        </div>
+        <div class="text__container">
+          <div class="displayWord">
+            <div class="displayLetter" data-letter="0"></div>
+            <div class="displayLetter" data-letter="1"></div>
+            <div class="displayLetter" data-letter="2"></div>
+            <div class="displayLetter" data-letter="3"></div>
+            <div class="displayLetter" data-letter="4"></div>
+            <div class="displayLetter" data-letter="5"></div>
+            <div class="displayLetter" data-letter="6"></div>
+            <div class="displayLetter" data-letter="7"></div>
+            <div class="displayLetter" data-letter="8"></div>
+            <div class="displayLetter" data-letter="9"></div>
+            <div class="displayLetter" data-letter="10"></div>
+            <div class="displayLetter" data-letter="11"></div>
+            <div class="displayLetter" data-letter="12"></div>
+            <div class="displayLetter" data-letter="13"></div>
+            <div class="displayLetter" data-letter="14"></div>
+          </div>
+          <div class="blankSpace__container">
+            <span class="blankSpace" data-space="1"></span>
+            <span class="blankSpace" data-space="2"></span>
+            <span class="blankSpace" data-space="3"></span>
+            <span class="blankSpace" data-space="4"></span>
+            <span class="blankSpace" data-space="5"></span>
+            <span class="blankSpace" data-space="6"></span>
+            <span class="blankSpace" data-space="7"></span>
+            <span class="blankSpace" data-space="8"></span>
+            <span class="blankSpace" data-space="9"></span>
+            <span class="blankSpace" data-space="10"></span>
+            <span class="blankSpace" data-space="11"></span>
+            <span class="blankSpace" data-space="12"></span>
+            <span class="blankSpace" data-space="13"></span>
+            <span class="blankSpace" data-space="14"></span>
+            <span class="blankSpace" data-space="15"></span>
+          </div>
+          <div class="input__container">
+            <div class="inputLetter">
+              <input type="text" id="input" placeholder="Input Letter" />
+              <button onclick="checkLetter()" id="inputButton">Enter</button>
+            </div>
+            <div class="inputGuess">
+              <input type="text" id="guess" placeholder="Guess" />
+              <button onclick="checkGuess()" id="guessButton">Enter</button>
+            </div>
+          </div>
+          <div class="keyboard__container">
+            <div class="firstRow">
+              <span class="keyboard__key" data-key="q">q</span>
+              <span class="keyboard__key" data-key="w">w</span>
+              <span class="keyboard__key" data-key="e">e</span>
+              <span class="keyboard__key" data-key="r">r</span>
+              <span class="keyboard__key" data-key="t">t</span>
+              <span class="keyboard__key" data-key="y">y</span>
+              <span class="keyboard__key" data-key="u">u</span>
+              <span class="keyboard__key" data-key="i">i</span>
+              <span class="keyboard__key" data-key="o">o</span>
+              <span class="keyboard__key" data-key="p">p</span>
+            </div>
+            <div class="secondRow">
+              <span class="keyboard__key" data-key="a">a</span>
+              <span class="keyboard__key" data-key="s">s</span>
+              <span class="keyboard__key" data-key="d">d</span>
+              <span class="keyboard__key" data-key="f">f</span>
+              <span class="keyboard__key" data-key="g">g</span>
+              <span class="keyboard__key" data-key="h">h</span>
+              <span class="keyboard__key" data-key="j">j</span>
+              <span class="keyboard__key" data-key="k">k</span>
+              <span class="keyboard__key" data-key="l">l</span>
+            </div>
+            <div class="thirdRow">
+              <span class="keyboard__key" data-key="z">z</span>
+              <span class="keyboard__key" data-key="x">x</span>
+              <span class="keyboard__key" data-key="c">c</span>
+              <span class="keyboard__key" data-key="v">v</span>
+              <span class="keyboard__key" data-key="b">b</span>
+              <span class="keyboard__key" data-key="n">n</span>
+              <span class="keyboard__key" data-key="m">m</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer__container">
+      <div class="footer__item--socials">
+        <button>
+          <a
+            href="https://www.linkedin.com/in/rachel-jingxian-wang-492922296/"
+            target="_blank"
+            >linkedIn</a
+          >
+        </button>
+        <button>
+          <a href="https://github.com/racheljxw" target="_blank">github</a>
+        </button>
+      </div>
+      <div class="footer__item--text">
+        <p>Rachel Wang 2025. All rights reserved.</p>
+        <p>www.racheljxw.com Version 1.0</p>
+      </div>
+      <div class="footer__item--email">
+        <button>
+          <a href="mailto:racheljxw@gmail.com" target="_blank"
+            >racheljxw@gmail.com</a
+          >
+        </button>
+      </div>
+    </div>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
