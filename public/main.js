@@ -268,45 +268,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-const section = document.querySelector(".hangman");
-const title = document.querySelector(".hangman__title");
-const gradientBridge1 = document.querySelector(".gradientBridge1");
-const gradientBridge4 = document.querySelector(".gradientBridge4");
-const footer = document.querySelector(".footer__container");
-const footerItems = document.querySelectorAll(".footer__items");
-
 document.addEventListener("DOMContentLoaded", function () {
     const toggle = document.getElementById('darkModeToggle');
 
-    toggle.addEventListener('change', function() {
-        if (toggle.checked) {
-            section.style.backgroundColor = "#191b28";
-            footer.style.backgroundColor = "#191b28";
-            title.style.color = "#fffcef";
-            gradientBridge1.style.background = "#191b28";
-            gradientBridge4.style.background = "linear-gradient(to top, #fffcef, #191b28)";
-            displayLetter.forEach(displayLetterEach => {
-                displayLetterEach.style.color = "#fffcef";
-            });
-            progress.style.color = "#fffcef";
-            hint.style.color = "#fffcef";
-            footerItems.forEach(item => {
-                item.style.color = "#fffcef";
-            });
-        } else {
-            section.style.backgroundColor = "#fffcef";
-            footer.style.backgroundColor = "#fffcef";
-            title.style.color = "#040618";
-            gradientBridge1.style.background = "linear-gradient(to top, #fffcef, #191b28)";
-            gradientBridge4.style.background = "#fffcef";
-            displayLetter.forEach(displayLetterEach => {
-                displayLetterEach.style.color = "#040618";
-            });
-            progress.style.color = "#040618";
-            hint.style.color = "#040618";
-            footerItems.forEach(item => {
-                item.style.color = "#040618";
-            });
-        }
-    });
+ toggle.addEventListener('change', function () {
+        document.body.classList.toggle('dark-mode', toggle.checked);
+ });
 });
